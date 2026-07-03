@@ -69,6 +69,10 @@
   .slide.active .s2-item:nth-child(2) { animation-delay: .34s; }
   .slide.active .s2-item:nth-child(3) { animation-delay: .53s; }
   .slide.active .s2-item:nth-child(4) { animation-delay: .72s; }
+  /* S10: NLR graph draws left-to-right on slide entry (empty -> complete) */
+  @keyframes nlrDraw { from { width: 0px; } to { width: 636px; } }
+  .nlr-wipe { width: 0px; }
+  .slide.active .nlr-wipe { animation: nlrDraw 1.6s cubic-bezier(.4,0,.2,1) .35s forwards; }
 
   /* ---- chrome: progress + counter + hint ---- */
   #bar { position: fixed; left:0; top:0; height:4px; background: var(--teal); width:0; z-index: 40; transition: width .4s ease; box-shadow:0 0 12px rgba(11,122,83,.6); }
@@ -431,6 +435,9 @@
           <text x="74" y="48" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="16" fill="#8A9A92">높음</text>
           <text x="74" y="352" text-anchor="end" font-family="'IBM Plex Mono',monospace" font-size="16" fill="#8A9A92">낮음</text>
           <text x="30" y="200" font-family="'Noto Sans KR',sans-serif" font-size="18" font-weight="700" fill="#556961" transform="rotate(-90 30 200)" text-anchor="middle">NLR 값</text>
+          <!-- left-to-right wipe reveal: graph "draws" on slide entry -->
+          <clipPath id="nlrReveal10"><rect class="nlr-wipe" x="82" y="24" width="636" height="344"></rect></clipPath>
+          <g clip-path="url(#nlrReveal10)">
           <!-- control (rising) red dashed -->
           <polyline points="82,300 241,250 400,196 559,128 718,66" fill="none" stroke="#C33636" stroke-width="3.5" stroke-dasharray="9 7" stroke-linecap="round" stroke-linejoin="round"></polyline>
           <g fill="#C33636"><circle cx="82" cy="300" r="6"></circle><circle cx="241" cy="250" r="6"></circle><circle cx="400" cy="196" r="6"></circle><circle cx="559" cy="128" r="6"></circle><circle cx="718" cy="66" r="6"></circle></g>
@@ -442,6 +449,7 @@
           <polygon points="700,66 695,80 705,80" fill="#556961"></polygon>
           <polygon points="700,330 695,316 705,316" fill="#556961"></polygon>
           <text x="690" y="200" text-anchor="end" font-family="'Noto Sans KR',sans-serif" font-size="16" font-weight="700" fill="#556961">완충 폭</text>
+          </g>
           <!-- x labels -->
           <g font-family="'IBM Plex Mono',monospace" font-size="16" fill="#8A9A92" text-anchor="middle">
             <text x="82" y="382">기저</text><text x="241" y="382">C1</text><text x="400" y="382">C2</text><text x="559" y="382">C3</text><text x="718" y="382">C4</text>
